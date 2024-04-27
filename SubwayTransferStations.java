@@ -29,7 +29,7 @@ public class SubwayTransferStations extends database  {
                 // 构造站点信息字符串，格式为 "<站点名称，线路1，线路2>"
                 StringBuilder sb = new StringBuilder();
                 sb.append("<").append(entry.getKey()).append("，");
-                int i=0;
+                int i=0;//计数器
                 for (String line : entry.getValue()) {
                     sb.append(line).append("、");
                     i++;
