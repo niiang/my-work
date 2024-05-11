@@ -13,7 +13,7 @@ import java.util.Queue;
 import java.util.Set;
 
 public class Findmindistance {
-
+    
     // 地铁线路的邻接列表表示
     static Map<String, Map<String, Map<String, Double>>> subwayGraph;
     public static String lineName=null;
@@ -77,12 +77,7 @@ public class Findmindistance {
     public Map<String, Map<String, Map<String, Double>>> getSubwayGraph() {
         return subwayGraph;
     }
-    // public static void main(String[] args) {
-    //     SubwaySearch loader = new SubwaySearch();
-    //     loader.loadSubwayData("C:\\Users\\25431\\.vscode\\java\\theendwork\\subway.txt"); // 确保 subway.txt 位于项目的 src 目录下
-    //     Collection<String> stations = loader.findStationsWithinDistance("武汉东站", 5);
-    //     System.out.println(stations);
-    //}
+    
     public void printstation(String stationName, int n){
         Findmindistance loader = new Findmindistance();
         loader.loadSubwayData("C:\\Users\\25431\\.vscode\\java\\theendwork\\subway.txt"); // 确保 subway.txt 位于项目的 src 目录下
@@ -96,8 +91,7 @@ public class Findmindistance {
         Set<String> visited = new HashSet<>();
         Collection<String> result = new ArrayList<>();
         //起点
-        
-        for(String s:getLineName(stationName)){
+        //for(String s:getLineName(stationName)){
             
             queue.offer(stationName);
             visited.add(stationName);
@@ -109,8 +103,9 @@ public class Findmindistance {
                 continue;
             }
 
-            // 获取当前站点的所有邻居站点
-            Map<String, Double>neighbors = subwayGraph.get(s).get(currentStation);//调取邻接表的后面部分，需要重写这块的逻辑
+            // 获取当前站点的所有邻居站点,以及他的线路
+            for(String c:getLineName(currentStation)){
+            Map<String, Double>neighbors = subwayGraph.get(c).get(currentStation);//调取邻接表的后面部分，需要重写这块的逻辑
             if (neighbors != null) {
                 for (Entry<String, Double> neighbor : neighbors.entrySet()) {
                     String neighborStation = neighbor.getKey();//相邻站
@@ -132,7 +127,7 @@ public class Findmindistance {
                     }
                 }
             }
-        }
+        }}
     
         //返回所有距离小于或等于 n 的站点的字符串描述
         
@@ -142,14 +137,14 @@ public class Findmindistance {
                 continue;
             }
             if (distances.get(station) <= n) {
-                String linename = s; // 假设这个方法可以获取站点所在的线路名称
+                Set<String> linename = getLineName(station); // 假设这个方法可以获取站点所在的线路名称
                 
-                result.add("("+station + "，" + linename + "，" + String.format("%.3f", distances.get(station)) +"km"+")");
+                result.add("\n"+"("+station + "，" + linename + "，" + String.format("%.3f", distances.get(station)) +"km"+")");
             }
         }
         visited.clear();
         
-        }
+        //}
     return result;
     }
 
@@ -169,10 +164,93 @@ public class Findmindistance {
 
         return stationLines; // 返回包含站点所在线路的集合
     }
-       
+    
         //需要填写逻辑返回线路名称
-    
-    
+    // public static void main(String[] args) {
+    //         Findmindistance loader = new Findmindistance();
+    //         loader.loadSubwayData("C:\\Users\\25431\\.vscode\\java\\theendwork\\subway.txt"); // 确保 subway.txt 位于项目的 src 目录下
+    //         //Collection<String> stations = loader.findStationsWithinDistance("中南路", 2);
+    //         loader.findStationsWithDistance("中南路", 3);
+    //         //System.out.println(stations);
+            
+    //     }
+    public Collection<String> findStationsWithDistance(String stationName, int n) {//stationname是输入的站点进行查询
+            Queue<String> queue = new LinkedList<>();
+            Map<String, Double> distances = new HashMap<>();
+            Set<String> visited = new HashSet<>();
+            Collection<String> result = new ArrayList<>();
+            
+            //起点
+            //for(String s:getLineName(stationName)){
 
-  
+                queue.offer(stationName);
+                visited.add(stationName);
+                distances.put(stationName, (double) 0);
+                
+                while (!queue.isEmpty()) {                  //程序实现
+                String currentStation = queue.poll();//当前站
+                // 检查当前站点的距离是否已经超出 n
+                //if (distances.get(currentStation) > n) {
+                //    continue;
+                //}
+                // 获取当前站点的所有邻居站点,以及他的线路
+                for(String c:getLineName(currentStation)){
+                Double j=(double)0;
+                Double i=0.0;
+                Map<String, Double>neighbors = subwayGraph.get(c).get(currentStation);//调取邻接表的后面部分，需要重写这块的逻辑
+                if (neighbors != null) {
+                    for (Entry<String, Double> neighbor : neighbors.entrySet()) {
+                        
+                        String neighborStation = neighbor.getKey();//相邻站
+                        //double distanceToNeighbor = neighbor.getValue();//到相邻站的实际距离
+                        
+                        if (!visited.contains(neighborStation)) {//限制了同样站的不能进来
+                            // 计算到邻居站点的总距离
+                            try {
+                                i++;//i是运行次数
+                                
+                                if(i%2!=0){
+                                    j++;
+
+                                }
+                                double totalDistance = distances.get(currentStation)+j;
+                            if (totalDistance <= n) {
+                                queue.offer(neighborStation);//添加
+                                distances.put(neighborStation, totalDistance);
+                                visited.add(neighborStation);
+                            }
+                            } catch (Exception e) {
+                                // TODO: handle exception
+                            }
+                            
+                            
+                        }
+                    }
+                }
+            }}
+        
+            //返回所有距离小于或等于 n 的站点的字符串描述
+            
+    
+            for (String station : visited) {
+                if (station==stationName) {
+                    continue;
+                }
+                if (distances.get(station) <= n) {
+                    Set<String> linename = getLineName(station); // 假设这个方法可以获取站点所在的线路名称
+                    
+                    result.add("("+station + "，" + linename + "，" + String.format("%.0f", distances.get(station)) +")"+"\n");
+                }
+            }
+            visited.clear();
+
+        System.out.println(result.size());
+        return result;
+        }
+        public void printminditance(String stationName, int n){//打印小于的站点
+            Findmindistance loader = new Findmindistance();
+            loader.loadSubwayData("C:\\Users\\25431\\.vscode\\java\\theendwork\\subway.txt"); // 确保 subway.txt 位于项目的 src 目录下
+            Collection<String> stations = loader.findStationsWithDistance(stationName, n);
+            System.out.println("距离"+stationName+"小于"+n+"的站点集合："+"\n"+"\n"+stations);
+        }
 }
