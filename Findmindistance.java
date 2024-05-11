@@ -86,8 +86,8 @@ public class Findmindistance {
     public void printstation(String stationName, int n){
         Findmindistance loader = new Findmindistance();
         loader.loadSubwayData("C:\\Users\\25431\\.vscode\\java\\theendwork\\subway.txt"); // 确保 subway.txt 位于项目的 src 目录下
-        Collection<String> stations = loader.findStationsWithinDistance("武汉东站", 5);
-        System.out.println(stations);
+        Collection<String> stations = loader.findStationsWithinDistance(stationName, n);
+        System.out.println("距离"+stationName+"小于"+n+"的站点集合："+"\n"+"\n"+stations);
     }
     //广度优先搜索，找出距离小于 n 的所有站点
     public Collection<String> findStationsWithinDistance(String stationName, int n) {//stationname是输入的站点进行查询
