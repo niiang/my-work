@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 
-@SuppressWarnings("unused")
+
 public class Subwayshortpath {
     private Map<String, Map<String,Double>> subwayGraph; 
     static double total;
-
-    public Subwayshortpath(){
-
+    public static String SUBWAY_FILE_PATH;
+    public Subwayshortpath(String filepath){
+        Subwayshortpath.SUBWAY_FILE_PATH=filepath;
     }
 
     public double gettotal(){
@@ -38,43 +38,6 @@ public class Subwayshortpath {
             }
         }
     }
-    // public Subwaypath(Map<String, Map<String, Map<String, Double>>> subwayGraph) {
-    //     // 将原始的 subwayGraph 转换为邻接列表形式的图
-    //     this.subwayGraph = new HashMap<>();
-
-    //     // 遍历原始地铁图中的每条线路
-    //     for (Map.Entry<String, Map<String, Map<String, Double>>> lineEntry : subwayGraph.entrySet()) {
-    //         //String lineName = lineEntry.getKey();
-    //         Map<String, Map<String, Double>> stations = lineEntry.getValue();
-            
-    //         // 创建一个新 Map 来存储转换后的线路数据
-    //         Map<String, Double> lineDistanceMap = new HashMap<>();
-
-    //         // 遍历线路中的每个站点
-    //         for (Map.Entry<String, Map<String, Double>> stationEntry : stations.entrySet()) {
-    //             //String stationName = stationEntry.getKey();
-    //             // 由于原始结构是 Map<String, Map<String, Double>>，我们假设这里的 Map<String, Double> 表示站点到线路上其他站点的距离
-    //             Map<String, Double> distances = stationEntry.getValue();
-                
-    //             // 将站点的距离信息添加到 lineDistanceMap 中
-    //             // for (Map.Entry<String, Double> distanceEntry : distances.entrySet()) {
-    //             //     String distanceStationName = distanceEntry.getKey();
-    //             //     Double distance = distanceEntry.getValue();
-    //             //     lineDistanceMap.put(distanceStationName, distance);
-    //             // }
-    //             this.subwayGraph.put(stationEntry.getKey(),distances);
-    //             lineDistanceMap.clear();
-    //         }
-
-    //         for(Map.Entry<String, Map<String, Double>> s : stations.entrySet()){
-    //             name=s.getKey();
-    //         }
-    //         // 将转换后的线路数据添加到最终的 Map 中
-            
-    //     }
-
-        
-    // }
 
     public List<String> getShortestPath(String start, String end) {
         Map<String, Double> distances = new HashMap<>();
@@ -118,8 +81,8 @@ public class Subwayshortpath {
     }
     
     public List<String> getshortpath(String start,String end){
-        Findmindistance loader = new Findmindistance();
-        loader.loadSubwayData("C:\\Users\\25431\\.vscode\\java\\theendwork\\subway.txt");
+        Findmindistance loader = new Findmindistance(SUBWAY_FILE_PATH);
+        loader.loadSubwayData(SUBWAY_FILE_PATH);
         Map<String, Map<String, Map<String, Double>>> subwayGraphData = Findmindistance.getSubwayGraph(); // 实际的地铁网络数据
         Subwayshortpath path = new Subwayshortpath(subwayGraphData);
         List<String> shortestPath = path.getShortestPath(start, end);
@@ -127,8 +90,8 @@ public class Subwayshortpath {
     }
 
     public void printshortpath(String start,String end){
-        Findmindistance loader = new Findmindistance();
-        loader.loadSubwayData("C:\\Users\\25431\\.vscode\\java\\theendwork\\subway.txt");
+        Findmindistance loader = new Findmindistance(SUBWAY_FILE_PATH);
+        loader.loadSubwayData(SUBWAY_FILE_PATH);
         Map<String, Map<String, Map<String, Double>>> subwayGraphData = Findmindistance.getSubwayGraph(); // 实际的地铁网络数据
         Subwayshortpath path = new Subwayshortpath(subwayGraphData);
         if(path.subwayGraph.containsKey(start)&&path.subwayGraph.containsKey(end)){
@@ -140,22 +103,5 @@ public class Subwayshortpath {
     }
 
     }
-
-    // public static void main(String[] args) {
-    //     // 假设 subwayGraph 已经根据之前的指导加载了地铁网络数据
-    //     Findmindistance loader = new Findmindistance();
-    //     loader.loadSubwayData("C:\\Users\\25431\\.vscode\\java\\theendwork\\subway.txt");
-    //     Map<String, Map<String, Map<String, Double>>> subwayGraphData = Findmindistance.getSubwayGraph(); // 实际的地铁网络数据
-    //     Subwayshortpath path = new Subwayshortpath(subwayGraphData);
-    //     String start = "华中科技大学"; // 起点站
-    //     String end = "武汉火车站"; // 终点站
-    //     if(path.subwayGraph.containsKey(start)&&path.subwayGraph.containsKey(end)){
-    //     List<String> shortestPath = path.getShortestPath(start, end);
-    //     System.out.println("The shortest path from " + start + " to " + end + " is: " + shortestPath);
-    // }
-    // else{
-    //     System.out.println("输入有误");
-    // }
-    // }
 }
     
