@@ -4,12 +4,16 @@ import java.util.List;
 import java.util.Map;
 
 public class Calculatefare {
+    public static String SUBWAY_FILE_PATH;
     Subwayshortpath path;
     List <String> shortpath;
     double d;
+    public Calculatefare(String filepath){
+        Calculatefare.SUBWAY_FILE_PATH=filepath;
+    }
     public void load(){//装载
-        Findmindistance loader = new Findmindistance();
-        loader.loadSubwayData("C:\\Users\\25431\\.vscode\\java\\theendwork\\subway.txt");
+        Findmindistance loader = new Findmindistance(SUBWAY_FILE_PATH);
+        loader.loadSubwayData(SUBWAY_FILE_PATH);
         Map<String, Map<String, Map<String, Double>>> subwayGraphData = Findmindistance.getSubwayGraph(); // 实际的地铁网络数据
         Subwayshortpath path = new Subwayshortpath(subwayGraphData);
         this.path=path;
@@ -49,14 +53,14 @@ public class Calculatefare {
         return fare;
     }
     public void getfare(String start,String end){
-        Calculatefare s= new Calculatefare();
+        Calculatefare s= new Calculatefare(SUBWAY_FILE_PATH);
         s.print(start,end);
         int fare=(int)s.calculateFare(s.d);
         System.out.println("从"+start+"到"+end+"普通单程票价："+fare+"元");
     } 
     
     public void withdiscount(String start,String end,String discount){
-        Calculatefare s= new Calculatefare();
+        Calculatefare s= new Calculatefare(SUBWAY_FILE_PATH);
         s.print(start,end);
         int fare=(int)s.calculateFare(s.d);
         //System.out.println("从"+start+"到"+end+"票价："+fare+"元");
