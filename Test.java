@@ -1,26 +1,28 @@
 package theendwork;
 
-public class Test extends TransferStations  {
+public class Test {
     public static void main(String[] args) {
-        //TransferStations transferStations=new TransferStations();
-        //transferStations.print();
+        
+        String yourfilepath="C:\\Users\\25431\\.vscode\\java\\theendwork\\subway.txt";
+        TransferStations transferStations=new TransferStations(yourfilepath);
+        transferStations.print();
         //以上是实验一
         String start="华中科技大学";
-        String end="湖北大学";
+        String end="湖口";
         //下面是实验二
-        Findmindistance find = new Findmindistance();
-        find.printminditance("华中科技大学", 1);
+        Findmindistance find = new Findmindistance(yourfilepath);
+        find.printminditance("华中科技大学", 5);
         
         //实验三
-        //SubwayPathFinder allpath=new SubwayPathFinder();
-        //allpath.getpath("华中科技大学","武汉火车站");
+        // SubwayPathFinder allpath=new SubwayPathFinder(yourfilepath);
+        // allpath.getpath("华中科技大学","武汉火车站");
 
         //实验四
-        // Subwayshortpath shortpath=new Subwayshortpath();
-        // shortpath.printshortpath("华中科技大学","武汉火车站");
+        Subwayshortpath shortpath=new Subwayshortpath(yourfilepath);
+        shortpath.printshortpath(start,end);
 
-        //实验六
-        Calculatefare fare=new Calculatefare();
+        // //实验六
+        Calculatefare fare=new Calculatefare(yourfilepath);
         fare.getfare(start,end);
 
         //实验七
