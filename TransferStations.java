@@ -11,10 +11,11 @@ import java.util.Set;
 import java.util.StringTokenizer;
 
 public class TransferStations {
-    public static final String SUBWAY_FILE_PATH = "C:\\Users\\25431\\.vscode\\java\\theendwork\\subway.txt";//
     
-    public TransferStations(){
-
+    public static String SUBWAY_FILE_PATH;
+    
+    public TransferStations(String filepath){
+        TransferStations.SUBWAY_FILE_PATH=filepath;
     }
     
     public static void fillStationLinesMap(Map<String, Set<String>> stationLines) {
