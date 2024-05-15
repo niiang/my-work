@@ -14,13 +14,15 @@ import java.util.Queue;
 import java.util.Set;
 
 public class Findmindistance {
-    
+    public static String SUBWAY_FILE_PATH;
     // 地铁线路的邻接列表表示
     static Map<String, Map<String, Map<String, Double>>> subwayGraph;
     public static String lineName=null;
-    public Findmindistance() {
+    public Findmindistance(String filepath) {
         subwayGraph = new HashMap<>();
+        Findmindistance.SUBWAY_FILE_PATH=filepath;
         // 假设已经从文件中加载了地铁网络数据到 subwayGraph
+        
     }
 
     // 加载地铁网络数据
@@ -78,76 +80,6 @@ public class Findmindistance {
     public static Map<String, Map<String, Map<String, Double>>> getSubwayGraph() {
         return subwayGraph;
     }
-    
-    // public void printstation(String stationName, int n){
-    //     Findmindistance loader = new Findmindistance();
-    //     loader.loadSubwayData("C:\\Users\\25431\\.vscode\\java\\theendwork\\subway.txt"); // 确保 subway.txt 位于项目的 src 目录下
-    //     Collection<String> stations = loader.findStationsWithinDistance(stationName, n);
-    //     System.out.println("距离"+stationName+"小于"+n+"的站点集合："+"\n"+"\n"+stations);
-    // }
-    //广度优先搜索，找出距离小于 n 的所有站点
-    // public Collection<String> findStationsWithinDistance(String stationName, int n) {//stationname是输入的站点进行查询
-    //     Queue<String> queue = new LinkedList<>();
-    //     Map<String, Double> distances = new HashMap<>();
-    //     Set<String> visited = new HashSet<>();
-    //     Collection<String> result = new ArrayList<>();
-    //     //起点
-    //     //for(String s:getLineName(stationName)){
-            
-    //         queue.offer(stationName);
-    //         visited.add(stationName);
-    //         distances.put(stationName, (double) 0);
-    //         while (!queue.isEmpty()) {                  //程序实现
-    //         String currentStation = queue.poll();//当前站
-    //         // 检查当前站点的距离是否已经超出 n
-    //         if (distances.get(currentStation) > n) {
-    //             continue;
-    //         }
-
-    //         // 获取当前站点的所有邻居站点,以及他的线路
-    //         for(String c:getLineName(currentStation)){
-    //         Map<String, Double>neighbors = subwayGraph.get(c).get(currentStation);//调取邻接表的后面部分，需要重写这块的逻辑
-    //         if (neighbors != null) {
-    //             for (Entry<String, Double> neighbor : neighbors.entrySet()) {
-    //                 String neighborStation = neighbor.getKey();//相邻站
-    //                 double distanceToNeighbor = neighbor.getValue();//
-
-    //                 if (!visited.contains(neighborStation)) {
-    //                     // 计算到邻居站点的总距离
-    //                     try {
-    //                         double totalDistance = distances.get(currentStation)+distanceToNeighbor;
-    //                     if (totalDistance <= n) {
-    //                         queue.offer(neighborStation);//添加
-    //                         distances.put(neighborStation, totalDistance);
-    //                         visited.add(neighborStation);
-    //                     }
-    //                     } catch (Exception e) {
-    //                         // TODO: handle exception
-    //                     }
-                        
-    //                 }
-    //             }
-    //         }
-    //     }}
-    
-    //     //返回所有距离小于或等于 n 的站点的字符串描述
-        
-
-    //     for (String station : visited) {
-    //         if (station==stationName) {
-    //             continue;
-    //         }
-    //         if (distances.get(station) <= n) {
-    //             Set<String> linename = getLineName(station); // 假设这个方法可以获取站点所在的线路名称
-                
-    //             result.add("\n"+"("+station + "，" + linename + "，" + String.format("%.3f", distances.get(station)) +"km"+")");
-    //         }
-    //     }
-    //     visited.clear();
-        
-    //     //}
-    // return result;
-    // }
 
     // 获取站点所在的线路名称
     public static Set<String> getLineName(String stationName) {
@@ -238,7 +170,6 @@ public class Findmindistance {
         return result;
         }
 
-        @SuppressWarnings("finally")
         public void isstations(String station){
             try{Map <String,Map<String,Double>> stationmap=subwayGraph.get(getLineName(station).toString().split("\\[|\\]")[1]);
         }
@@ -248,12 +179,11 @@ public class Findmindistance {
             
         }
         public void printminditance(String stationName, int n){//打印小于的站点
-            Findmindistance loader = new Findmindistance();
-            loader.loadSubwayData("C:\\Users\\25431\\.vscode\\java\\theendwork\\subway.txt"); // 确保 subway.txt 位于项目的 src 目录下
+            Findmindistance loader = new Findmindistance(SUBWAY_FILE_PATH);
+            loader.loadSubwayData(SUBWAY_FILE_PATH); // 确保 subway.txt 位于项目的 src 目录下
             Collection<String> stations = loader.findStationsWithDistance(stationName, n);
             isstations(stationName);
             System.out.println("距离"+stationName+"小于"+n+"的站点集合："+"\n"+stations.size()+"站"+"\n"+stations);
-        
             
     }
             
