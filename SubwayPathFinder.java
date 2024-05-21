@@ -61,38 +61,4 @@ public class SubwayPathFinder {
         visited.remove(currentStation); // 回溯，移除当前站点
         currentPath.remove(currentPath.size() - 1); // 回溯，移除当前路径的最后一个站点
     }
-    
-    // 测试类
-    public void getpath(String start,String end){
-        Findmindistance loader = new Findmindistance(SUBWAY_FILE_PATH);
-        loader.loadSubwayData(SUBWAY_FILE_PATH);
-        Map<String, Map<String, Map<String, Double>>> subwayGraphData = Findmindistance.getSubwayGraph(); // 实际的地铁网络数据
-        SubwayPathFinder finder = new SubwayPathFinder(subwayGraphData);
-        Integer i=0;
-        List<List<String>> paths = finder.findAllPaths(start, end);
-        for (List<String> path : paths) {
-            i++;
-            System.out.println(path);
-        }
-        System.out.println(start+"到"+end+"的总线路有:"+i+"条");
-    }
-
-    // public static void main(String[] args) {
-    //     // 假设 subwayGraph 已经根据之前的指导加载了地铁网络数据
-    //     Findmindistance loader = new Findmindistance();
-    //     loader.loadSubwayData("C:\\Users\\25431\\.vscode\\java\\theendwork\\subway.txt");
-    //     Map<String, Map<String, Map<String, Double>>> subwayGraphData = Findmindistance.getSubwayGraph(); // 实际的地铁网络数据
-
-    //     SubwayPathFinder finder = new SubwayPathFinder(subwayGraphData);
-    //     String start = "华中科技大学"; // 起点站
-    //     String end = "武汉火车站"; // 终点站
-    //     Integer i=0;
-    //     List<List<String>> paths = finder.findAllPaths(start, end);
-    //     for (List<String> path : paths) {
-    //         i++;
-    //         System.out.println(path);
-    //     }
-    //     System.out.println(start+"到"+end+"的总线路有:"+i+"条");
-    // }
-    
 }

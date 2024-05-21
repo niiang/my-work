@@ -15,7 +15,6 @@ public class Subwayshortpath {
     public Subwayshortpath(String filepath){
         Subwayshortpath.SUBWAY_FILE_PATH=filepath;
     }
-
     public double gettotal(){
         return total;
     }
@@ -80,7 +79,8 @@ public class Subwayshortpath {
         return path;
     }
     
-    public List<String> getshortpath(String start,String end){
+    public List<String> getshortpath(String start,String end,String filepath){
+        SUBWAY_FILE_PATH=filepath;
         Findmindistance loader = new Findmindistance(SUBWAY_FILE_PATH);
         loader.loadSubwayData(SUBWAY_FILE_PATH);
         Map<String, Map<String, Map<String, Double>>> subwayGraphData = Findmindistance.getSubwayGraph(); // 实际的地铁网络数据

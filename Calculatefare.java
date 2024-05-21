@@ -20,7 +20,7 @@ public class Calculatefare {
     }
     public void print(String start,String end){//获取最短路径
         load();
-        shortpath=path.getshortpath(start,end);
+        shortpath=path.getshortpath(start,end,SUBWAY_FILE_PATH);
         this.d=path.gettotal();
     }
     public double calculateFare(double distance) {
@@ -73,10 +73,5 @@ public class Calculatefare {
     }
 
 
-    // public static void main(String[] args) {
-    //     Calculatefare s= new Calculatefare();
-    //     s.print("武汉火车站","华中科技大学");
-    //     int fare=(int)s.calculateFare(s.d);
-    //     System.out.println(fare+"元");
-    // }
+
 }

@@ -161,7 +161,7 @@ public class Findmindistance {
                 if (distances.get(station) <= n) {
                     Set<String> linename = getLineName(station); // 假设这个方法可以获取站点所在的线路名称
                     
-                    result.add("<"+station + "," + linename +"," + String.format("%.0f", distances.get(station))+">" );
+                    result.add("<"+station + "," + linename.toString().split("\\[|\\]")[1] +"," + String.format("%.0f", distances.get(station))+">" );
                 }
             }
             visited.clear();
@@ -183,7 +183,7 @@ public class Findmindistance {
             loader.loadSubwayData(SUBWAY_FILE_PATH); // 确保 subway.txt 位于项目的 src 目录下
             Collection<String> stations = loader.findStationsWithDistance(stationName, n);
             isstations(stationName);
-            System.out.println("距离"+stationName+"小于"+n+"的站点集合："+"\n"+stations.size()+"站"+"\n"+stations);
+            System.out.println("距离"+stationName+"小于"+n+"的站点集合："+"\n"+stations.size()+"站"+"\n"+stations.toString());
             
     }
             
