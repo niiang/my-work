@@ -61,4 +61,17 @@ public class SubwayPathFinder {
         visited.remove(currentStation); // 回溯，移除当前站点
         currentPath.remove(currentPath.size() - 1); // 回溯，移除当前路径的最后一个站点
     }
+    public void getpath(String start,String end){
+        Findmindistance loader = new Findmindistance(SUBWAY_FILE_PATH);
+        loader.loadSubwayData(SUBWAY_FILE_PATH);
+        Map<String, Map<String, Map<String, Double>>> subwayGraphData = Findmindistance.getSubwayGraph(); // 实际的地铁网络数据
+        SubwayPathFinder finder = new SubwayPathFinder(subwayGraphData);
+        Integer i=0;
+        List<List<String>> paths = finder.findAllPaths(start, end);
+        for (List<String> path : paths) {
+            i++;
+            System.out.println(path);
+        }
+        System.out.println(start+"到"+end+"的总线路有:"+i+"条");
+    }
 }
